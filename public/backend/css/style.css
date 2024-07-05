@@ -1,0 +1,16 @@
+.text__main-color {
+    color: #075588 !important;
+}
+
+.bg__main-color {
+    background-color: #075588;
+}
+
+.bg__main-color:hover {
+    background-color: #075588;
+    border: 1px solid #075588;
+}
+
+.border__main-color {
+    border: 1px solid #075588;
+}

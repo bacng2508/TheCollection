@@ -1,0 +1,48 @@
+.text__main-color {
+    color: #075588 !important;
+}
+
+.bg__main-color {
+    background-color: #075588;
+}
+
+.header-search .select-custom {
+    min-width: 160px;
+    flex: 0 0 129px;
+}
+
+.menu .megamenu.megamenu-3cols {
+    width: auto;
+    padding: 0;
+}
+
+.home__nav-item:hover .home__sub-nav-item {
+    display: block !important;
+}
+
+.search-item:hover {
+    background-color: white;
+}
+
+.profile__sidebar-item:hover {
+    cursor: pointer;
+    background-color: #f4f4f4 !important; 
+    border-radius: 5px;
+}
+
+.active__profile-sidebar-item {
+    background-color: #f4f4f4; 
+    border-radius: 5px;
+}
+
+.btn {
+    text-transform: none !important;
+}
+
+.bg__header-table {
+    background-color: #f4f4f4;
+}
+
+.align-middle {
+    vertical-align: middle !important;
+}
