@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Đăng nhập quản trị viên</title>
+    <title>Quên mật mật khẩu</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('company') }}/logo/company_white_icon.jpg">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -28,34 +28,23 @@
         </div>
         <div class="card">
             <div class="card-body login-card-body p-4" style="border-radius: 8px;">
-                <h5 class="login-box-msg p-0 mb-4 font-weight-bold">Đăng nhập quản trị viên</h5>
-                @if (session()->has('msg'))
-                    <p class="text-danger text-center mb-2">{{session('msg')}}</p>
-                @endif
+                <h5 class="login-box-msg p-0 mb-4 font-weight-bold">Thiết lập mật khẩu mới</h5>
                 @session('success')
                     <p class="text-success text-center mb-2">{{session('success')}}</p>
                 @endsession
-                <form action="{{route('admin.login')}}" method="POST">
+                @session('error')
+                    <p class="text-danger text-center mb-2">{{session('error')}}</p>
+                @endsession
+                <form method="POST" action="{{ route('admin.reset-password') }}" >
                     @csrf
+                    <input type="hidden" name="email" value="{{ request()->get('email') }}">
+                    <input type="hidden" name="token" value="{{ request()->get('token') }}">
                     <div class="mb-3">
                         <div class="input-group">
-                            <input type="text" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
+                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu mới">
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
-                            </div>
-                        </div>
-                        @error('email')
-                            <div class="form-text text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="mb-2">
-                        <div class="input-group">
-                            <input type="password" name="password" class="form-control" placeholder="Password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
+                                    <span class="fas fa-key"></span>
                                 </div>
                             </div>
                         </div>
@@ -63,20 +52,23 @@
                             <div class="form-text text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mt-1">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember" name="remember">
-                            <label for="remember" class="font-weight-normal">
-                                Ghi nhớ đăng nhập
-                            </label>
-                        </div>
-                        <div>
-                            <a href="{{ route('admin.forgot-password') }}">Quên mật khẩu</a>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="Nhập lại mật khẩu mới">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-key"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="mt-3">
-                        <button class="btn btn-primary w-100 bg__main-color border__main-color">Đăng nhập</button>
+                        <button class="btn btn-primary w-100 bg__main-color border__main-color">Cập nhật mật khẩu mới</button>
+                    </div>
+                    <hr class="my-3">
+                    <div class="mb-3">
+                        <p class="text-center">Bạn đã có tài khoản? <a href="{{route('admin.login')}}"> Đăng nhập</a></p>
                     </div>
                 </form>
             </div>

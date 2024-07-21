@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Mail\OrderConfirm;
 use Illuminate\Http\Request;
 
 use App\Models\Cart;
@@ -14,8 +13,7 @@ use App\Models\Product;
 use App\Models\VnpayInfo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Jobs\SendEmail;
+use App\Jobs\OrderConfirm;
 
 class OrderController extends Controller
 {
@@ -227,7 +225,8 @@ class OrderController extends Controller
 
             $payment_message = "Đặt hàng thành công!";
             $orderItems = OrderItem::where('order_id', $order->id)->get();
-            SendEmail::dispatch($order)->delay(now()->addSecond(10));
+            // SendEmail::dispatch($order)->delay(now()->addSecond(10));
+            OrderConfirm::dispatch($order)->delay(now()->addSecond(10));
             return view('client.payment-result', compact('payment_message', 'order', 'orderItems'));
         } else {
             $this->vnpayPayment($order->id, $order->order_code,$order->grand_total);

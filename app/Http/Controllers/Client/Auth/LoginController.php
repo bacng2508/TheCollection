@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function create() {
-        return view('admin.auth.login');
+        return view('client.auth.login');
     }
 
     public function store(Request $request) {
@@ -23,7 +23,6 @@ class LoginController extends Controller
             'password.required' => 'Không được để trống mật khẩu',
         ]);
 
-        
         $data = [
             'email' => $request->email,
             'password' => $request->password
@@ -31,18 +30,21 @@ class LoginController extends Controller
 
         $remember = $request->remember ? true : false;
 
-        if (Auth::guard('administrator')->attempt($data, $remember)) {
+        if (Auth::guard('web')->attempt($data, $remember)) {
             $request->session()->regenerate();
-            return redirect()->route('admin.dashboard.index');
+            return redirect()->route('home');
         } else {
-            return redirect()->back()->withInput()->with('msg', 'Email hoặc mật khẩu không chính xác');
+            return redirect()->back()->withInput()->with('error', 'Email hoặc mật khẩu không chính xác');
         }
     }
 
     public function destroy(Request $request) {
-        Auth::guard('administrator')->logout();
+        Auth::guard('web')->logout();
+
         $request->session()->invalidate();
+
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+
+        return redirect()->route('home');
     }
 }

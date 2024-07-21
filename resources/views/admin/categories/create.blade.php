@@ -14,7 +14,7 @@
                                     nhập vào</p>
                             @endif
 
-                            <form class="" method="POST" action="{{ route('admin.categories.store') }}">
+                            <form class="" method="POST" action="{{ route('categories.store') }}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Tên danh mục</label>

@@ -9,11 +9,16 @@
                         <div class="heading mb-1">
                             <h2 class="title text-center">Đăng nhập</h2>
                         </div>
-                        @if (session()->has('msg'))
+                        @session('success')
                             <div class="alert alert-success py-3 mb-1 justify-content-center">
-                                {{session('msg')}}
+                                {{session('success')}}
                             </div>
-                        @endif
+                        @endsession
+                        @session('error')
+                            <div class="alert alert-danger py-3 mb-1 justify-content-center">
+                                {{session('error')}}
+                            </div>
+                        @endsession
                         @error('loginFail')
                             <div class="alert alert-danger py-3 mb-1 justify-content-center">
                                 {{ $message }}
@@ -44,13 +49,12 @@
                             </div>
 
                             <div class="form-footer align-items-center mt-0 mb-2">
-                                {{-- <div class="custom-control custom-checkbox mb-0 mt-0">
-                                    <input type="checkbox" class="custom-control-input" id="lost-password" />
-                                    <label class="custom-control-label mb-0" for="lost-password">Ghi nhớ đăng nhập</label>
-                                </div> --}}
+                                <div class="custom-control custom-checkbox mb-0 mt-0">
+                                    <input type="checkbox" class="custom-control-input" id="remember" name="remember"/>
+                                    <label class="custom-control-label mb-0" for="remember">Ghi nhớ đăng nhập</label>
+                                </div>
 
-                                <a href="forgot-password.html" class="forget-password text-dark form-footer-right">Quên mật
-                                    khẩu ?</a>
+                                <a href="{{ route('forgot-password') }}" class="forget-password text-dark form-footer-right">Quên mật khẩu ?</a>
                             </div>
                             <button type="submit" class="btn btn-dark btn-md w-100">
                                 ĐĂNG NHẬP

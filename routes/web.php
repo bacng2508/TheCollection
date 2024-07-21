@@ -13,13 +13,16 @@ use App\Http\Controllers\Admin\AttributeOptionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdministratorController;
+use App\Http\Controllers\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\Client\Auth\ForgotPasswordController;
+use App\Http\Controllers\Client\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Client\Auth\RegisterController as AuthRegisterController;
 //Client Controller
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
@@ -41,14 +44,26 @@ use App\Http\Controllers\Client\SearchController;
 |
 */
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/new-password', function () {
+    return view('mail.forgot-password');
+});;
 
-Route::get('/test-mail', [HomeController::class, 'testMail']);
+// Route::get('/test-mail', [HomeController::class, 'testMail']);
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/login', [AuthLoginController::class, 'create'])->name('login');
+Route::post('/login', [AuthLoginController::class, 'store'])->name('login');
+Route::post('/logout', [AuthLoginController::class, 'destroy'])->name('logout');
+Route::get('/register', [AuthRegisterController::class, 'create'])->name('register');
+Route::post('/register', [AuthRegisterController::class, 'store'])->name('register');
+Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->name('forgot-password');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('forgot-password');
+Route::get('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('reset-password');
+Route::post('/reset-password', [ForgotPasswordController::class, 'postResetPassword'])->name('reset-password');
+
+
 Route::get('/san-pham/{product:slug}', [ClientProductController::class, 'show'])->name('client.product.detail');
 Route::post('/san-pham/{product:slug}', [ReviewController::class, 'store'])->name('client.review.store');
 Route::get('/danh-muc/{category:slug}', [ClientCategoryController::class, 'index'])->name('client.category.index');
@@ -74,10 +89,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/order/apply-coupon', [OrderController::class, 'applyCoupon']);
 });
 
-
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/', [LoginController::class, 'create'])->name('login');
     Route::post('/', [LoginController::class, 'store'])->name('login');
+    Route::get('/forgot-password', [AdminForgotPasswordController::class, 'create'])->name('forgot-password');
+    Route::post('/forgot-password', [AdminForgotPasswordController::class, 'store'])->name('forgot-password');
+    Route::get('/reset-password', [AdminForgotPasswordController::class, 'resetPassword'])->name('reset-password');
+    Route::post('/reset-password', [AdminForgotPasswordController::class, 'postResetPassword'])->name('reset-password');
 });
 
 Route::prefix('admin')->name('admin.')->middleware('administrator')->group(function() {
@@ -180,4 +198,4 @@ Route::prefix('admin')->name('admin.')->middleware('administrator')->group(funct
     Route::delete('/administrators/{administrator}', [AdministratorController::class, 'destroy'])->name('administrators.destroy');
 });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';
