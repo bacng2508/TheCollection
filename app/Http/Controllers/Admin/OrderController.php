@@ -15,6 +15,7 @@ class OrderController extends Controller
         $this->authorize('list-order');
         $orders = Order::query()
             ->filterOrder($request)
+            ->latest()
             ->paginate(10)
             ->withQueryString();
         return view('admin.orders.index', compact('orders'));

@@ -44,13 +44,6 @@ use App\Http\Controllers\Client\SearchController;
 |
 */
 
-Route::get('/new-password', function () {
-    return view('mail.forgot-password');
-});;
-
-// Route::get('/test-mail', [HomeController::class, 'testMail']);
-
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [AuthLoginController::class, 'create'])->name('login');
@@ -62,7 +55,6 @@ Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->nam
 Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('forgot-password');
 Route::get('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('reset-password');
 Route::post('/reset-password', [ForgotPasswordController::class, 'postResetPassword'])->name('reset-password');
-
 
 Route::get('/san-pham/{product:slug}', [ClientProductController::class, 'show'])->name('client.product.detail');
 Route::post('/san-pham/{product:slug}', [ReviewController::class, 'store'])->name('client.review.store');
@@ -199,3 +191,7 @@ Route::prefix('admin')->name('admin.')->middleware('administrator')->group(funct
 });
 
 // require __DIR__.'/auth.php';
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'administrator']], function () {
+     \UniSharp\LaravelFilemanager\Lfm::routes();
+});

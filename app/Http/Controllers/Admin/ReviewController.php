@@ -19,13 +19,13 @@ class ReviewController extends Controller
         if (count($productIds) > 0) {
             $reviews = Review::whereIn('product_id', $productIds);
             if ($request->rating != '0') {
-                $reviews = $reviews->where('rating', $request->rating)->with('user')->paginate(10)->withQueryString();
+                $reviews = $reviews->where('rating', $request->rating)->with('user')->latest()->paginate(10)->withQueryString();
             } else {
                 $reviews = $reviews->with('user')->paginate(10)->withQueryString();
             }
         } else {
             if ($request->has('rating') && $request->rating != '0') {
-                $reviews = Review::where('rating', $request->rating)->with('user')->paginate(10)->withQueryString();
+                $reviews = Review::where('rating', $request->rating)->with('user')->latest()->paginate(10)->withQueryString();
             } else {
                 $reviews = Review::with('user')->paginate(10)->withQueryString();
             }

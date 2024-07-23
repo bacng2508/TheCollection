@@ -10,7 +10,11 @@ class CouponController extends Controller
 {
     public function index(Request $request) {
         $this->authorize('list-coupon');
-        $coupons = Coupon::query()->searchCoupon($request)->paginate(10)->withQueryString();
+        $coupons = Coupon::query()
+            ->searchCoupon($request)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
         return view('admin.coupons.index', compact('coupons'));
     }
 

@@ -11,7 +11,11 @@ class AttributeOptionController extends Controller
 {
     public function index(Request $request) {
         $this->authorize('list-attribute-option');
-        $attributeOptions = AttributeOption::query()->searchAttributeOption($request)->paginate(10)->withQueryString();
+        $attributeOptions = AttributeOption::query()
+            ->searchAttributeOption($request)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
         $attributes = Attribute::all();
         return view('admin.attributeOptions.index', compact('attributeOptions', 'attributes'));
     }

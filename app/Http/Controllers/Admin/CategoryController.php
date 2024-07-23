@@ -12,7 +12,11 @@ class CategoryController extends Controller
     public function index(Request $request) {
         $this->authorize('list-category');
         
-        $categories = Category::query()->searchCategory($request)->latest()->paginate(10)->withQueryString();
+        $categories = Category::query()
+            ->searchCategory($request)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.categories.index', compact('categories'));
     }

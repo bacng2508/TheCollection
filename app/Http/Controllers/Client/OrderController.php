@@ -286,6 +286,7 @@ class OrderController extends Controller
                 $item->product->update(['quantity' => $item->product->quantity - $item->quantity]);
             }
             $payment_message = "Giao dịch thành công";
+            OrderConfirm::dispatch($order)->delay(now()->addSecond(10));
             
         } else {
             Order::find($order->id)->update(['order_status' => 0]);

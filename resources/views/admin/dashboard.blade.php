@@ -5,153 +5,155 @@
 @section('content')
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ number_format($orders->sum('grand_total')) }} đ</h3>
+        @can('dashboard-statistic')
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{ number_format($orders->sum('grand_total')) }} đ</h3>
 
-                            <p>DOANH THU</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa-solid fa-money-bill"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $orders->count() }}</h3>
-                            <p>ĐƠN HÀNG</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3 class="text-white">{{ $products->count() }}</h3>
-
-                            <p class="text-white">SẢN PHẨM</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa-solid fa-box-archive"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $users->count() }}</h3>
-
-                            <p>KHÁCH HÀNG</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- ./col -->
-            </div>
-
-            <div class="row">
-                <div class="col-12 px-0">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fa-solid fa-money-bill-trend-up mr-1"></i>
-                                Thống kê doanh thu
-                            </h3>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-4 p-5">
-                                    <div>
-                                        <h3 class="font-weight-bold">Doanh thu ngày</h3>
-                                        <p>{{ number_format($revenueByDate) }} đ</p>
-                                    </div>
-                                    <hr>
-                                    <div>
-                                        <h3 class="font-weight-bold">Doanh thu tuần</h3>
-                                        <p>{{ number_format($revenueByWeek) }} đ</p>
-                                    </div>
-                                    <hr>
-                                    <div>
-                                        <h3 class="font-weight-bold">Doanh thu tháng</h3>
-                                        <p>{{ number_format($revenueByMonth) }} đ</p>
-                                    </div>
-                                    <hr>
-                                    <div>
-                                        <h3 class="font-weight-bold">Doanh thu năm</h3>
-                                        <p>{{ number_format($revenueByYear) }} đ</p>
-                                    </div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="tab-content p-0">
-                                        <h4 class="mb-4 font-weight-bold text-center">Doanh thu theo tháng năm 2024</h4>
-                                        <canvas id="myChart"></canvas>
-                                    </div>
-                                </div>
+                                <p>DOANH THU</p>
                             </div>
-                        </div><!-- /.card-body -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 px-0">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fa-solid fa-chart-line mr-1"></i>
-                                Thống kê người dùng
-                            </h3>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-4 px-5">
-                                    <h4 class="mb-4 font-weight-bold">Đánh giá sản phẩm</h4>
-                                    <div class="tab-content p-0 pt-3">
-                                        <canvas id="reviewProductChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="tab-content p-0">
-                                        <h4 class="mb-4 font-weight-bold text-center">Người dùng đăng ký theo tháng</h4>
-                                        <canvas id="mostBuyProductChart"></canvas>
-                                    </div>
-                                </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-money-bill"></i>
                             </div>
-                        </div><!-- /.card-body -->
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>{{ $orders->count() }}</h3>
+                                <p>ĐƠN HÀNG</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3 class="text-white">{{ $products->count() }}</h3>
+
+                                <p class="text-white">SẢN PHẨM</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-box-archive"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{ $users->count() }}</h3>
+
+                                <p>KHÁCH HÀNG</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+
+                <div class="row">
+                    <div class="col-12 px-0">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fa-solid fa-money-bill-trend-up mr-1"></i>
+                                    Thống kê doanh thu
+                                </h3>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4 p-5">
+                                        <div>
+                                            <h3 class="font-weight-bold">Doanh thu ngày</h3>
+                                            <p>{{ number_format($revenueByDate) }} đ</p>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <h3 class="font-weight-bold">Doanh thu tuần</h3>
+                                            <p>{{ number_format($revenueByWeek) }} đ</p>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <h3 class="font-weight-bold">Doanh thu tháng</h3>
+                                            <p>{{ number_format($revenueByMonth) }} đ</p>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <h3 class="font-weight-bold">Doanh thu năm</h3>
+                                            <p>{{ number_format($revenueByYear) }} đ</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="tab-content p-0">
+                                            <h4 class="mb-4 font-weight-bold text-center">Doanh thu theo tháng năm 2024</h4>
+                                            <canvas id="myChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.card-body -->
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- /.row -->
-            <!-- Main row -->
-            <div class="row">
-                <!-- Left col -->
-                <section class="col-lg-7 connectedSortable">
-                </section>
-                <!-- /.Left col -->
-                <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                <section class="col-lg-5 connectedSortable">
-                </section>
-                <!-- right col -->
-            </div>
-            <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
+                <div class="row">
+                    <div class="col-12 px-0">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fa-solid fa-chart-line mr-1"></i>
+                                    Thống kê người dùng
+                                </h3>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-4 px-5">
+                                        <h4 class="mb-4 font-weight-bold">Đánh giá sản phẩm</h4>
+                                        <div class="tab-content p-0 pt-3">
+                                            <canvas id="reviewProductChart"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="tab-content p-0">
+                                            <h4 class="mb-4 font-weight-bold text-center">Người dùng đăng ký theo tháng</h4>
+                                            <canvas id="mostBuyProductChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.row -->
+                <!-- Main row -->
+                <div class="row">
+                    <!-- Left col -->
+                    <section class="col-lg-7 connectedSortable">
+                    </section>
+                    <!-- /.Left col -->
+                    <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                    <section class="col-lg-5 connectedSortable">
+                    </section>
+                    <!-- right col -->
+                </div>
+                <!-- /.row (main row) -->
+            </div><!-- /.container-fluid -->
+        @endcan
     </section>
     <!-- /.content -->
 @endsection

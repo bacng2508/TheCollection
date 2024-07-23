@@ -77,7 +77,7 @@
 
                     <div class="product-desc">
                         <p>
-                            {{ $product->description }}
+                            {!! $product->description !!}
                         </p>
                     </div>
                     <!-- End .product-desc -->
@@ -293,7 +293,7 @@
                                             </div>
 
                                             <span class="comment-by">
-                                                <strong>{{$review->user->name}}</strong> – April 12, 2018
+                                                <strong>{{$review->user->name}}</strong> – {{date('d/m/Y ',strtotime($review->created_at))}}
                                             </span>
                                         </div>
 

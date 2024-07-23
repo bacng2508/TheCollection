@@ -74,7 +74,6 @@ class ForgotPasswordController extends Controller
 
         $checkValidResetRequest = DB::table('password_reset_tokens')
             ->where('email', urldecode($request->email))
-            ->where('token', $request->token)
             ->exists();
             
 

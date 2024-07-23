@@ -10,7 +10,11 @@ class AttributeController extends Controller
 {
     public function index(Request $request) {
         $this->authorize('list-attribute');
-        $attributes = Attribute::query()->searchAttribute($request)->paginate(10)->withQueryString();
+        $attributes = Attribute::query()
+            ->searchAttribute($request)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
         
         return view('admin.attributes.index', compact('attributes'));
     }

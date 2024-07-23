@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $productAttributeOptions = ProductAttribute::where('product_id',$product->id)->get();
-        $reviews = Review::where('product_id', $product->id)->where('status', 1)->with('user')->get();
+        $reviews = Review::where('product_id', $product->id)->where('status', 1)->with('user')->latest()->get();
         $relateProducts = Product::where('category_id',$product->category_id)->where('id', '<>', $product->id)->get();
 
         $wasBoughtByUser = false;

@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{route('admin.dashboard.index')}}" class="brand-link">
-        <img src="{{asset('company/logo/logo_removeBg2.png')}}" alt="AdminLTE Logo"
-            class="brand-image " style="opacity: .8">
+    <a href="{{ route('admin.dashboard.index') }}" class="brand-link">
+        <img src="{{ asset('company/logo/logo_removeBg2.png') }}" alt="AdminLTE Logo" class="brand-image "
+            style="opacity: .8">
         <span class="brand-text font-weight-bold pl-2">THE COLLECTION</span>
     </a>
 
@@ -32,14 +32,16 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
-                <li class="nav-item sidebar-nav">
-                    <a href="{{route('admin.dashboard.index')}}" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-chart-pie mr-2"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                </li>
+                @can('dashboard-statistic')
+                    <li class="nav-item sidebar-nav">
+                        <a href="{{ route('admin.dashboard.index') }}" class="nav-link ">
+                            <i class="nav-icon fa-solid fa-chart-pie mr-2"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                @endcan
 
 
                 @if (Gate::check('list-category') || Gate::check('add-category'))
@@ -59,7 +61,7 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can ('add-category')
+                            @can('add-category')
                                 <li class="nav-item">
                                     <a href="{{ route('admin.categories.create') }}" class="nav-link">
                                         <p>Thêm danh mục</p>
@@ -184,93 +186,99 @@
                     </li>
                 @endif
 
-                <li class="nav-item sidebar-nav">
-                    <a href="#" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-ticket mr-2"></i>
-                        <p>
-                            Quản lý coupon
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-product')
-                            <li class="nav-item sidebar-nav">
-                                <a href="{{ route('admin.coupons.index') }}" class="nav-link">
-                                    <p>Danh sách coupon</p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('add-product')
-                            <li class="nav-item sidebar-nav">
-                                <a href="{{ route('admin.coupons.create') }}" class="nav-link">
-                                    <p>Thêm coupon</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+                @if (Gate::check('list-coupon') || Gate::check('add-coupon'))
+                    <li class="nav-item sidebar-nav">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fa-solid fa-ticket mr-2"></i>
+                            <p>
+                                Quản lý coupon
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('list-coupon')
+                                <li class="nav-item sidebar-nav">
+                                    <a href="{{ route('admin.coupons.index') }}" class="nav-link">
+                                        <p>Danh sách coupon</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('add-coupon')
+                                <li class="nav-item sidebar-nav">
+                                    <a href="{{ route('admin.coupons.create') }}" class="nav-link">
+                                        <p>Thêm coupon</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endif
 
-                <li class="nav-item sidebar-nav">
-                    <a href="#" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-users mr-2"></i>
-                        <p>
-                            Quản lý khách hàng
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-product')
+                @if (Gate::check('list-client') || Gate::check('add-client'))
+                    <li class="nav-item sidebar-nav">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fa-solid fa-users mr-2"></i>
+                            <p>
+                                Quản lý khách hàng
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('list-client')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                        <p>Danh sách khách hàng</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('add-client')
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.users.create') }}" class="nav-link">
+                                        <p>Thêm khách hàng</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endif
+
+                @if (Gate::check('list-review'))
+                    <li class="nav-item sidebar-nav">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fa-solid fa-ranking-star mr-2"></i>
+                            <p>
+                                Quản lý đánh giá
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('admin.users.index') }}" class="nav-link">
-                                    <p>Danh sách khách hàng</p>
+                                <a href="{{ route('admin.reviews.index') }}" class="nav-link">
+                                    <p>Danh sách đánh giá</p>
                                 </a>
                             </li>
-                        @endcan
-                        @can('add-product')
-                            <li class="nav-item">
-                                <a href="{{ route('admin.users.create') }}" class="nav-link">
-                                    <p>Thêm khách hàng</p>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                @endif
 
-                <li class="nav-item sidebar-nav">
-                    <a href="#" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-ranking-star mr-2"></i>
-                        <p>
-                            Quản lý đánh giá
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.reviews.index') }}" class="nav-link">
-                                <p>Danh sách đánh giá</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item sidebar-nav">
-                    <a href="#" class="nav-link ">
-                        <i class="nav-icon fa-solid fa-cart-flatbed mr-2"></i>
-                        <p>
-                            Quản lý đơn hàng
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('list-product')
+                @if (Gate::check('list-order'))
+                    <li class="nav-item sidebar-nav">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fa-solid fa-cart-flatbed mr-2"></i>
+                            <p>
+                                Quản lý đơn hàng
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{ route('admin.orders.index') }}" class="nav-link">
                                     <p>Danh sách đơn hàng</p>
                                 </a>
                             </li>
-                        @endcan
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                @endif
 
                 @if (Gate::check('list-role') || Gate::check('add-role'))
                     <li class="nav-item sidebar-nav">

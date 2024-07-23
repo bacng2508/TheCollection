@@ -45,6 +45,6 @@ class RegisterController extends Controller
 
         // Breeze
         // return redirect(RouteServiceProvider::HOME);
-        return redirect('/login')->with('msg', 'Tài khoản đã được đăng ký thành công');
+        return redirect('/login')->with('success', 'Tài khoản đã được đăng ký thành công');
     }
 }

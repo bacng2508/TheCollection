@@ -17,6 +17,11 @@ class PermissionSeeder extends Seeder
         DB::table('permissions')->insert(
             [
                 [
+                    'name' => 'dashboard-statistic',
+                    'display_name' => 'Xem thống kê',
+                    'permission_group_id' => DB::table('permission_groups')->where('name', 'statistic')->value('id')
+                ],
+                [
                     'name' => 'list-category',
                     'display_name' => 'Xem danh mục',
                     'permission_group_id' => DB::table('permission_groups')->where('name', 'category')->value('id')

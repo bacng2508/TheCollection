@@ -42,7 +42,7 @@ class OrderConfirm extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.orders.order-confirm',
+            view: 'mail.order-confirm',
         );
     }
 

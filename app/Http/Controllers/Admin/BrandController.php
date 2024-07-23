@@ -10,7 +10,11 @@ class BrandController extends Controller
 {
     public function index(Request $request) {
         $this->authorize('list-brand');
-        $brands = Brand::query()->searchBrand($request)->paginate(10)->withQueryString();
+        $brands = Brand::query()
+            ->searchBrand($request)
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
         return view('admin.brands.index', compact('brands'));
     }
 

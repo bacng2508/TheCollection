@@ -22,6 +22,7 @@ class ProductController extends Controller
 
         $products = Product::query()
             ->searchProduct($request)
+            ->latest()
             ->paginate(10)
             ->withQueryString();
         return view('admin.products.index', compact('products', 'categories'));
@@ -58,10 +59,10 @@ class ProductController extends Controller
         $validateRules = array_merge([
             'name' => 'required|unique:products,name',
             'slug' => 'required|unique:products,slug',
-            'thumbnail' => 'required|image|max:2000',
+            'thumbnail' => 'required|image|max:5000',
             // 'image' => ['required', 'image', File::image()->smallerThan(20000)],
             'images' => 'required',
-            'images.*' => 'image|max:2000',
+            'images.*' => 'image|max:5000',
             'price' => 'required|integer|min:1',
             'description' => 'required',
             'brand_id' => 'required',
@@ -101,7 +102,16 @@ class ProductController extends Controller
         
         // Upload file
         if ($request->hasFile('thumbnail')) {
+            // Cách 1
             $thumbnailPath = $request->file('thumbnail')->store('upload/product/thumbnails','public');
+
+            // Cách 2: Lưu ý rằng 2 phương thức storeAs và putFileAs đều có chức năng là như nhau nên dùng hàm nào cũng được
+            // $thumbnail = $request->file('thumbnail');
+            // $thumbnailFileName = $thumbnail->getClientOriginalName();
+            // $thumbnailFileExtension = $thumbnail->getClientOriginalExtension();
+            // $thumbnailFileNewName = $thumbnailFileName.$thumbnailFileExtension;
+            // $pathumbnailPathth = $request->file('avatar')->storeAs('upload/product/thumbnails', $thumbnailFileNewName, 'public');
+            // $pathumbnailPathth = Storage::putFileAs('upload/product/thumbnails', $thumbnailFileNewName, 'public');
         }
 
         if ($request->hasFile('images')) {

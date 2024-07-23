@@ -17,6 +17,7 @@ class UserController extends Controller
         $this->authorize('list-client');
         $users = User::query()
             ->searchUser($request)
+            ->orderBy('name', 'asc')
             ->paginate(10)
             ->withQueryString();
         return view('admin.users.index', compact('users'));

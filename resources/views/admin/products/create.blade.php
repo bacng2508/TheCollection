@@ -184,7 +184,6 @@
             slug.value = getSlug(titleValue);
         })
 
-
         slug.addEventListener('change', () => {
             if (slug.value === "") {
                 const title = document.querySelector("#name");

@@ -17,6 +17,10 @@ class PermissionGroupSeeder extends Seeder
         DB::table('permission_groups')->insert(
             [
                 [
+                    'name' => 'statistic',
+                    'display_name' => 'Thống kê'
+                ],
+                [
                     'name' => 'category',
                     'display_name' => 'Danh mục'
                 ],
