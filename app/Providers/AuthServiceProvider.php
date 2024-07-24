@@ -30,9 +30,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //Here
         $permissions = Permission::all();
-
         foreach ($permissions as $permission) {
             Gate::define($permission->name, function($user = null) use ($permission) {
                 $administratorRoles = Auth::guard('administrator')->user()->roles;

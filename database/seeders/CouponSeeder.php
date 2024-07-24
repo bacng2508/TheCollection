@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Coupon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,19 +15,20 @@ class CouponSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('coupons')->insert(
-            [
-                [
-                    'name' => 'KHAITRUONG01',
-                    'value' => '15',
-                    'expire_date' => new Carbon('2024-07-15 00:00:00')
-                ],
-                [
-                    'name' => 'SUMMER24',
-                    'value' => '10',
-                    'expire_date' => new Carbon('2024-07-30 00:00:00')
-                ]
-            ]
-        );
+        Coupon::factory()->count(5)->create();
+        // DB::table('coupons')->insert(
+        //     [
+        //         [
+        //             'name' => 'KHAITRUONG01',
+        //             'value' => '15',
+        //             'expire_date' => new Carbon('2024-07-15 00:00:00')
+        //         ],
+        //         [
+        //             'name' => 'SUMMER24',
+        //             'value' => '10',
+        //             'expire_date' => new Carbon('2024-07-30 00:00:00')
+        //         ]
+        //     ]
+        // );
     }
 }
