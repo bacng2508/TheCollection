@@ -12,6 +12,9 @@
                             @if (session('msg'))
                                 <div class="alert alert-success text-center ">{{ session('msg') }}</div>
                             @endif
+                            @error('import_file')
+                                <div class="alert alert-danger text-center">{{ $message }}</div>
+                            @enderror
                             <div class="mb-3 d-flex justify-content-between ">
                                 <form action="{{ route('admin.users.index') }}" method="GET" class="d-flex">
                                     <div class="form-group mb-0 mr-1" style="width: 280px;">
@@ -28,9 +31,23 @@
                                     </button>
                                 </form>
                                 @can('add-client')
-                                    <div>
+                                    <div class="d-flex">
+                                        <form action="{{ route('admin.users.import') }}" method="POST" enctype="multipart/form-data" class="mr-1">
+                                            @csrf
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <label class="custom-file-label" for="import_file" style="border-radius: 5px 0 0 5px">Chọn file</label>
+                                                    <input type="file" class="custom-file-input" name="import_file" id="import_file">
+                                                </div>
+                                                <button type="submit" class="btn btn-info text-white" style="border-radius: 0 5px 5px 0">Nhập dữ liệu</button>
+                                            </div>
+                                        </form>
+                                        {{-- <a href="{{ route('admin.users.export') }}" class="btn btn-success mr-1">
+                                            Nhập dữ liệu<i class="fa-solid fa-file-import"></i>
+                                        </a> --}}
                                         <a href="{{ route('admin.users.export') }}" class="btn btn-success mr-1">
-                                            <i class="fa-regular fa-floppy-disk"></i>
+                                            <i class="fa-solid fa-download pr-2"></i>
+                                            Xuất dữ liệu
                                         </a>
                                         <a href="{{ route('admin.users.create') }}" class="btn btn-primary ">
                                             <i class="fa-solid fa-plus mr-2"></i>
@@ -68,7 +85,7 @@
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" class="custom-control-input toggle-user-status"
                                                         @cannot('status-client')
-                                                            {{'disabled'}}
+                                                            {{ 'disabled' }}
                                                         @endcan 
                                                         name="user_{{ $user->id }}" id="user_{{ $user->id }}"
                                                         data-id="{{ $user->id }}"
@@ -95,7 +112,7 @@
                                                     </div>
                                                 </td>
                                             @endif
-                                        </tr>
+                                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>

@@ -163,8 +163,8 @@ Route::prefix('admin')->name('admin.')->middleware('administrator')->group(funct
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::get('/users/updateStatus', [UserController::class, 'updateStatus'])->name('users.updateStatus');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/import', [UserController::class, 'import'])->name('users.import');
     Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
-    Route::get('/users/import', [UserController::class, 'import'])->name('users.import');
 
     //Review
     Route::get('reviews/', [AdminReviewController::class, 'index'])->name('reviews.index');

@@ -138,8 +138,16 @@ class UserController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 
-    public function import() {
-        Excel::import(new UsersImport, 'users.xlsx');
+    public function import(Request $request) {
+        $request->validate([
+            'import_file' => ['required', 'extensions:xlsx']
+        ],
+        [
+            'import_file.required' => 'File chưa được tải lên',
+            'import_file.extensions' => 'File không đúng định dạng'
+        ]);
+
+        Excel::import(new UsersImport, $request->file('import_file'));
         
         return redirect()->back()->with('msg', 'Nhập dữ liệu thành công');
     }
