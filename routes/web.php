@@ -154,6 +154,7 @@ Route::prefix('admin')->name('admin.')->middleware('administrator')->group(funct
     Route::get('orders/', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::put('/orders/{order}/update-status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::get('/orders/{id}', [AdminOrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders/invoice/dowload/{order}', [AdminOrderController::class, 'exportInvoice'])->name('orders.exportInvoice');
 
     //User
     Route::get('users/', [UserController::class, 'index'])->name('users.index');

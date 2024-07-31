@@ -41,7 +41,7 @@
                             <table id="example2" class="table table-bordered table-hover mb-3">
                                 <thead class="text-center">
                                     <tr>
-                                        <th width="15%">#</th>
+                                        <th width="5%">#</th>
                                         <th width="">Mã đơn hàng</th>
                                         <th width="">Ngày tạo</th>
                                         <th width="">Tổng tiền</th>
@@ -49,7 +49,7 @@
                                         @if (Gate::check('status-order'))
                                             <th width="">Trạng thái</th>
                                         @endif
-                                        <th width="15%">Hành động</th>
+                                        <th width="20%">Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-center">
@@ -96,8 +96,12 @@
                                                     <div class="d-flex justify-content-center">
                                                         <button type="button" class="btn btn-info mr-1 order-detail"
                                                             data-id="{{ $order->id }}">
-                                                            chi tiết
+                                                            Chi tiết
                                                         </button>
+                                                        <a href="{{ route('admin.orders.exportInvoice', $order) }}" class="btn btn-danger">
+                                                            <i class="fa-solid fa-download pr-2"></i>
+                                                            Xuất hóa đơn
+                                                        </a>
                                                     </div>
                                                 @endif
                                             </td>

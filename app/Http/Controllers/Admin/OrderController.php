@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+
 use App\Models\Order;
 use App\Models\OrderItem;
 // use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
+use App\Http\Controllers\Controller;
+
 
 class OrderController extends Controller
 {
@@ -46,5 +49,14 @@ class OrderController extends Controller
             'order_status' => $request->order_status,
         ]);
         return back()->with('msg', 'Cập nhật trạng thái đơn hàng thành công');
+    }
+
+    public function exportInvoice(Order $order) {
+        // dd($order);
+        $orderItems = OrderItem::where('order_id', $order->id)->get();
+        $pdf = Pdf::loadView('admin.orders.invoice', compact('order', 'orderItems'));
+        // return $pdf->stream();
+        // return view('admin.orders.invoice', compact('order', 'orderItems'));
+        return $pdf->download('invoice.pdf');
     }
 }
