@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\WelcomeClient;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -38,6 +39,8 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'avatar' => 'upload/client/avatar/default-avatar.png',
         ]);
+
+        WelcomeClient::dispatch(['email' => $user->email, 'name' => $user->name])->delay(now()->addSecond(5));
 
         // event(new Registered($user));
 
