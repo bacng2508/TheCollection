@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Review;
@@ -95,5 +96,10 @@ class ProfileController extends Controller
     public function productReviews() {
         $myReviews = Review::where('user_id', Auth::user()->id)->paginate(10);
         return view('client.profile.product-reviews', compact('myReviews'));
+    }
+
+    public function myNotifications() {
+        $myNotifications = Auth::user()->notifications->paginate(10);
+        return view('client.profile.my-notifications', compact('myNotifications'));
     }
 }

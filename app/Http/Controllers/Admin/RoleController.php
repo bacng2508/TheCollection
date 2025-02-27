@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index() {
         $this->authorize('list-role');
-        $roles = Role::paginate(10);;
+        $roles = Role::paginate(10);
         return view('admin.roles.index', compact('roles'));
     }
 

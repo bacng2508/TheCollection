@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
-
+use App\Notifications\OrderChangeStatus;
 
 class OrderController extends Controller
 {
@@ -48,6 +48,7 @@ class OrderController extends Controller
         $order->update([
             'order_status' => $request->order_status,
         ]);
+        $order->user->notify(new OrderChangeStatus($order));
         return back()->with('msg', 'Cập nhật trạng thái đơn hàng thành công');
     }
 

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Http\Middleware\Administrator;
 use App\View\Composers\CartComposer;
 use App\View\Composers\NavbarComposer;
+use App\View\Composers\Admin\NotificationComposer;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Facades\Gate;
@@ -46,5 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFour();
         View::composer('client.*', CartComposer::class);
         View::composer('client.*', NavbarComposer::class);
+        View::composer('client.*', NavbarComposer::class);
+        View::composer('admin.*', NotificationComposer::class);
     }
 }

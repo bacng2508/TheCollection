@@ -118,9 +118,40 @@
 
 
 
-
-
-                <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
+                <div class="position-relative home__nav-item mr-5">
+                    <div class="position-relative p-1">
+                        <i class="fa-regular fa-bell" style="font-size: 24px"></i></a>
+                        <span id="total-unread-notification" class="badge-circle " style="position: absolute; top: -5px; right: -8px;">{{ Auth::user() ? Auth::user()->unreadNotifications()->count() : '' }}</span>
+                    </div>
+                    @auth
+                        <div class="border border-black position-absolute home__sub-nav-item bg-white d-none rounded"
+                            style="z-index: 100; width: 400px; top: 120%">
+                            <div class="d-flex justify-content-between px-4 py-2 border-bottom align-items-center">
+                                <h5 class="mb-0">Thông báo</h5>
+                                <a class="text-center text-primary" href="{{ route('client.notification.read-all') }}">
+                                    Đánh dấu đã đọc tất cả
+                                </a>
+                            </div>
+                            <div class="dropdown-item d-flex flex-column justify-content-between notification-items p-0" id="notification-list">
+                                @foreach (Auth::user()->notifications()->take(5)->get() as $notification)
+                                    <div class="d-flex justify-content-start align-items-start p-3 border-bottom notification-item">
+                                        <div class="align-self-start p-2">
+                                            <i class="fas fa-bell mr-3 mt-2 text-warning" style="font-size: 22px"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="my-0 font-weight-bold" style="font-size: 16px">{{ $notification->data['title'] }}</h5>
+                                            <span style="font-size: 12px" class="text-muted">{{ $notification->data['message'] }}</span>
+                                            <p style="font-size: 12px" class="text-muted mt-1">{{ date('H:i d-m-Y ', strtotime($notification->created_at)) }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <a class="dropdown-item text-center p-2 d-block" href="{{ route('profile.my-orders') }}">
+                                Xem tất cả thông báo
+                            </a>
+                        </div>
+                    @endauth
+                </div>
                 @auth
                     @if (request()->path() == 'check-out')
                         <div class="dropdown cart-dropdown">

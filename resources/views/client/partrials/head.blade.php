@@ -55,4 +55,7 @@
 
     {{-- Toastr --}}
 	<link rel="stylesheet" href="{{asset("frontend")}}/assets/css/toastr.min.css">
+
+    @vite(['resources/js/app.js'])
+
 </head>

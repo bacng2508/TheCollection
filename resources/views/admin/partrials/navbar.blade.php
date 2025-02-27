@@ -41,7 +41,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                        <img src="" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 Brad Diesel
@@ -57,7 +57,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                        <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 John Pierce
@@ -73,7 +73,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                        <img src="" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 Nora Silvester
@@ -93,27 +93,41 @@
         <li class="nav-item dropdown d-flex align-items-center">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <span class="badge badge-warning navbar-badge" id="total-unread-notification">{{ $unReadNotifications }}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="min-width: 380px">
+                <div class="d-flex justify-content-between align-items-center px-3 py-2">
+                    <span class="font-weight-bold" style="font-size: 18px">Thông báo</span>
+                    @if ($hasNewNotification)
+                        <a href="{{ route('admin.notification.read-all') }}" class="text-secondary" style="font-size: 14px">Đánh dấu đã đọc</a>
+                    @endif
+                </div>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
+                @if ($totalNotifications != 0)
+                    <div id="notification-list">
+                        @foreach ($notifications as $notification)
+                            <div class="dropdown-item d-flex justify-content-between align-items-center notification-item">
+                                <div class="d-flex justify-content-start align-items-start">
+                                    <i class="fas fa-bell mr-3 mt-2 text-warning" style="font-size: 22px"></i>
+                                    <div>
+                                        <h5 class="my-0 font-weight-bold" style="font-size: 16px">{{ $notification->data['title'] }}</h5>
+                                        <span style="font-size: 12px" class="text-muted">{{ $notification->data['message'] }}</span>
+                                        <p style="font-size: 12px" class="text-muted mt-1">{{ date('H:i d-m-Y ', strtotime($notification->created_at)) }}</p>
+                                    </div>
+                                </div>
+                                @if ($notification->read_at == null)
+                                    <i class="fa-solid fa-circle text-primary" style="font-size: 10px;"></i>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="p-3 text-center text-secondary" style="font-size: 14px">
+                        Không có thông báo mới
+                    </div>
+                @endif
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                <a href="{{ route('admin.notification.index') }}" class="dropdown-item dropdown-footer">Xem tất cả thông báo</a>
             </div>
         </li>
         <li class="nav-item d-flex align-items-center">

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController as AdminForgotPassw
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\UserController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\Client\Auth\RegisterController as AuthRegisterControlle
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\NotificationController as ClientNotificationController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\ProfileController as ClientProfileController;
@@ -68,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/change-password', [ClientProfileController::class, 'changePassword'])->name('profile.change-password');
     Route::post('/profile/change-password', [ClientProfileController::class, 'updatePassword'])->name('profile.update-password');
     Route::get('/profile/my-orders', [ClientProfileController::class, 'myOrders'])->name('profile.my-orders');
+    Route::get('/profile/my-notifications', [ClientProfileController::class, 'myNotifications'])->name('profile.my-notifications');
     Route::get('/profile/order-detail/{order}', [ClientProfileController::class, 'orderDetail'])->name('profile.order-detail');
     Route::get('/profile/product-reviews', [ClientProfileController::class, 'productReviews'])->name('profile.product-reviews');
 
@@ -79,6 +82,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/check-out', [OrderController::class, 'store'])->name('client.checkout.store');
     Route::get('/payment-result', [OrderController::class, 'vnpayResult']);
     Route::get('/order/apply-coupon', [OrderController::class, 'applyCoupon']);
+
+    Route::get('/notification/read-all', [ClientNotificationController::class, 'readAll'])->name('client.notification.read-all');;
 });
 
 Route::prefix('admin')->name('admin.')->group(function() {
@@ -91,6 +96,9 @@ Route::prefix('admin')->name('admin.')->group(function() {
 });
 
 Route::prefix('admin')->name('admin.')->middleware('administrator')->group(function() {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notification.index');
+    Route::get('/notifications/read-all', [NotificationController::class, 'readAll'])->name('notification.read-all');
+
     //Profile
     Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [AdminProfileController::class, 'update'])->name('profile.update');

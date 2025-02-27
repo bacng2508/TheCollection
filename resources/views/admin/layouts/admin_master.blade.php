@@ -68,6 +68,65 @@
     <!-- JsHandle -->
     @stack('jsHandle')
     <!-- ./JsHandle -->
+    
+    <script type="module">
+        const listNotification = document.getElementById('notification-list');
+        const notificationItems = document.getElementsByClassName('notification-item');
+        const totalUnreadNotification = document.getElementById('total-unread-notification');
+
+        toastr.options.closeButton = true;
+        toastr.options.progressBar = true;
+
+        Echo.channel('user-registered')
+            .listen('UserRegistered', (e) => {
+                if (listNotification.children && listNotification.children.length == 5) {
+                    listNotification.children[0].remove();
+                }
+
+                let newNotificationItem = document.createElement("div");
+                newNotificationItem.classList.add("dropdown-item", "d-flex", "justify-content-between", "align-items-center", "notification-items");
+                newNotificationItem.innerHTML = `
+                    <div class="d-flex justify-content-start align-items-start">
+                        <i class="fas fa-bell mr-3 mt-2 text-warning" style="font-size: 22px"></i>
+                        <div>
+                            <h5 class="my-0 font-weight-bold" style="font-size: 16px">${e.title}</h5>
+                            <span style="font-size: 12px" class="text-muted">${e.message}</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle text-primary" style="font-size: 10px;"></i>
+                `;
+
+                // Append to the list
+                listNotification.prepend(newNotificationItem);
+                totalUnreadNotification.textContent = Number(totalUnreadNotification.textContent)+1
+                toastr.success(e.message, e.title);
+            })
+
+        Echo.channel('order-confirm')
+            .listen('OrderConfirm', (e) => {
+                if (listNotification.children.length == 5) {
+                    listNotification.children[0].remove();
+                }
+
+                let newNotificationItem = document.createElement("div");
+                newNotificationItem.classList.add("dropdown-item", "d-flex", "justify-content-between", "align-items-center", "notification-items");
+                newNotificationItem.innerHTML = `
+                    <div class="d-flex justify-content-start align-items-start">
+                        <i class="fas fa-bell mr-3 mt-2 text-warning" style="font-size: 22px"></i>
+                        <div>
+                            <h5 class="my-0 font-weight-bold" style="font-size: 16px">${e.title}</h5>
+                            <span style="font-size: 12px" class="text-muted">${e.message}</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-circle text-primary" style="font-size: 10px;"></i>
+                `;
+
+                // Append to the list
+                listNotification.prepend(newNotificationItem);
+                totalUnreadNotification.textContent = Number(totalUnreadNotification.textContent)+1
+                toastr.success(e.message, e.title);
+            });
+    </script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

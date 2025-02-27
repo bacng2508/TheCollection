@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\OrderConfirm as EventsOrderConfirm;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -226,7 +227,8 @@ class OrderController extends Controller
             $payment_message = "Đặt hàng thành công!";
             $orderItems = OrderItem::where('order_id', $order->id)->get();
             // SendEmail::dispatch($order)->delay(now()->addSecond(10));
-            OrderConfirm::dispatch($order)->delay(now()->addSecond(10));
+            EventsOrderConfirm::dispatch($order);
+            
             return view('client.payment-result', compact('payment_message', 'order', 'orderItems'));
         } else {
             $this->vnpayPayment($order->id, $order->order_code,$order->grand_total);
@@ -286,8 +288,8 @@ class OrderController extends Controller
                 $item->product->update(['quantity' => $item->product->quantity - $item->quantity]);
             }
             $payment_message = "Giao dịch thành công";
-            OrderConfirm::dispatch($order)->delay(now()->addSecond(10));
-            
+            // OrderConfirm::dispatch($order)->delay(now()->addSecond(10));
+            EventsOrderConfirm::dispatch($order);
         } else {
             Order::find($order->id)->update(['order_status' => 0]);
             $payment_message = "Đã có lỗi xảy ra, xin vui lòng thử lại!";

@@ -337,5 +337,42 @@
         
     </script>
 
+    <script type="module">
+        const listNotification = document.getElementById('notification-list');
+        const notificationItems = document.getElementsByClassName('notification-item');
+        const totalUnreadNotification = document.getElementById('total-unread-notification');
+
+        toastr.options.closeButton = true;
+        toastr.options.progressBar = true;
+
+        Echo.private('App.Models.User.' + 44)
+            .notification((notification) => {
+                if (listNotification.children && listNotification.children.length == 5) {
+                    listNotification.children[0].remove();
+                }
+
+                let newNotificationItem = document.createElement("div");
+                newNotificationItem.classList.add("dropdown-item", "d-flex", "justify-content-between", "align-items-center", "notification-items");
+                newNotificationItem.innerHTML = `
+                    <div class="d-flex justify-content-start align-items-start p-3 border-bottom notification-item">
+                        <div class="align-self-start p-2">
+                            <i class="fas fa-bell mr-3 mt-2 text-warning" style="font-size: 22px"></i>
+                        </div>
+                        <div>
+                            <h5 class="my-0 font-weight-bold" style="font-size: 16px">${notification.title}</h5>
+                            <span style="font-size: 12px" class="text-muted">${notification.message}</span>
+                            <p style="font-size: 12px" class="text-muted mt-1">${notification.created_at}</p>
+                        </div>
+                    </div>
+                `;
+
+                // Append to the list
+                listNotification.prepend(newNotificationItem);
+                totalUnreadNotification.textContent = Number(totalUnreadNotification.textContent)+1
+
+                toastr.success(notification.message, notification.title);
+                console.log(notification)
+            });
+    </script>
 <!-- Mirrored from portotheme.com/html/porto_ecommerce/demo4.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 27 Apr 2024 08:02:12 GMT -->
 </html>

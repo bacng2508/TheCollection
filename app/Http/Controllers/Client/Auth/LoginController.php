@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Events\UserRegistered;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -31,6 +32,7 @@ class LoginController extends Controller
         $remember = $request->remember ? true : false;
 
         if (Auth::guard('web')->attempt($data, $remember)) {
+            // UserRegistered::dispatch(Auth::user());
             $request->session()->regenerate();
             return redirect()->route('home');
         } else {
@@ -41,9 +43,8 @@ class LoginController extends Controller
     public function destroy(Request $request) {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
 
         return redirect()->route('home');
     }

@@ -52,6 +52,8 @@
     {{-- Custom Style --}}
 	<link rel="stylesheet" href="{{asset("backend")}}/css/style.css">
 
+    @vite(['resources/js/app.js'])
+
     <!-- StyleCSS -->
     @stack('styles')
     <!-- StyleCSS -->

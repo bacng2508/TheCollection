@@ -24,7 +24,14 @@
                     Đổi mật khẩu
                 </a>
             </li>
-            <li class="profile__sidebar-item {{ Route::current()->getName() === 'profile.my-orders' || Route::current()->getName() === 'profile.order-detail' ? 'active__profile-sidebar-item' : '' }}">
+            <li class="profile__sidebar-item {{ Route::current()->getName() === 'profile.my-notifications' || Route::current()->getName() === 'profile.order-detail' ? 'active__profile-sidebar-item' : '' }}">
+                <a href="{{route('profile.my-notifications')}}" class="d-block p-3" style="color: #777; font-size: 15px;">
+                    <span class="d-inline-block text-right" style="width: 30px;"><i
+                            class="fa-solid fa-bell mr-3"></i> </span>
+                    Quản lý thông báo
+                </a>
+            </li>
+            <li class="profile__sidebar-item {{ Route::current()->getName() === 'profile.my-orders' ? 'active__profile-sidebar-item' : '' }}">
                 <a href="{{route('profile.my-orders')}}" class="d-block p-3" style="color: #777; font-size: 15px;">
                     <span class="d-inline-block text-right" style="width: 30px;"><i
                             class="fa-solid fa-boxes-packing mr-3"></i> </span>

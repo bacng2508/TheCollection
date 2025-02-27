@@ -19,6 +19,7 @@
     {{-- <link rel="stylesheet" href="../../dist/css/adminlte.min.css"> --}}
     <link rel="stylesheet" href="{{ asset('backend/assets/dist/css/adminlte.min.css') }}">
 	<link rel="stylesheet" href="{{asset("backend")}}/css/style.css">
+
 </head>
 
 <body class="hold-transition login-page">
@@ -39,7 +40,7 @@
                     @csrf
                     <div class="mb-3">
                         <div class="input-group">
-                            <input type="text" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
+                            <input type="text" name="email" class="form-control" placeholder="Email" value="superadmin@gmail.com">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -52,7 +53,7 @@
                     </div>
                     <div class="mb-2">
                         <div class="input-group">
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password" value="password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -94,7 +95,6 @@
     <!-- AdminLTE App -->
     {{-- <script src="../../dist/js/adminlte.min.js"></script> --}}
     <script src="{{ asset('backend/assets/dist/js/adminlte.js') }}"></script>
-     
 </body>
 
 </html>

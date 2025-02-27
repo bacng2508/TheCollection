@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Jobs\WelcomeClient;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Events\UserRegistered;
 use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -40,10 +41,12 @@ class RegisterController extends Controller
             'avatar' => 'upload/client/avatar/default-avatar.png',
         ]);
 
-        WelcomeClient::dispatch(['email' => $user->email, 'name' => $user->name])->delay(now()->addSecond(5));
-
+        // WelcomeClient::dispatch(['email' => $user->email, 'name' => $user->name])->delay(now()->addSecond(5));
+        // broadcast(new UserRegistered($user))->toOthers();
         // event(new Registered($user));
-
+        // event(new UserRegistered($user));
+        // broadcast(new UserRegistered($user))->toOthers();
+        UserRegistered::dispatch($user);
         // Auth::login($user);
 
         // Breeze

@@ -42,7 +42,8 @@
     <script src="{{ asset('backend/js/script.js') }}"></script>
     <script src="{{ asset('backend/js/function.js') }}"></script>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
     {{-- Fix uploaded file name doesn't show --}}
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 
