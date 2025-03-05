@@ -32,7 +32,6 @@ class LoginController extends Controller
         $remember = $request->remember ? true : false;
 
         if (Auth::guard('web')->attempt($data, $remember)) {
-            // UserRegistered::dispatch(Auth::user());
             $request->session()->regenerate();
             return redirect()->route('home');
         } else {

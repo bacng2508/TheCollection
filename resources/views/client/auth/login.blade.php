@@ -24,7 +24,7 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                        <form class="mb-2" method="POST" action="{{ route('login') }}">
+                        <form class="mb-0" method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-1">
                                 <label for="login-email">
@@ -48,7 +48,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-footer align-items-center mt-0 mb-2">
+                            <div class="form-footer align-items-center mt-0">
                                 <div class="custom-control custom-checkbox mb-0 mt-0">
                                     <input type="checkbox" class="custom-control-input" id="remember" name="remember"/>
                                     <label class="custom-control-label mb-0" for="remember">Ghi nhớ đăng nhập</label>
@@ -60,7 +60,11 @@
                                 ĐĂNG NHẬP
                             </button>
                         </form>
-                        <hr class="my-3">
+                        <p class="text-center my-3">Hoặc</p>
+                        <a href="{{ route('social.login', 'google') }}" 
+                            class="btn btn-secondary d-block">Đăng nhập bằng google
+                        </a>
+                        <hr class="my-4">
                         <div class="mb-3">
                             <p class="text-center">Bạn chưa có tài khoản? <a href="{{route('register')}}"> Đăng ký</a></p>
                         </div>

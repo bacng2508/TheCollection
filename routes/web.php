@@ -1,39 +1,41 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\Admin\Auth\RegisterController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Client\SocialLogin;
+use App\Http\Controllers\Admin\RoleController;
 
 //Admin Controller
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\AttributeController;
-use App\Http\Controllers\Admin\AttributeOptionController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\AdministratorController;
-use App\Http\Controllers\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Admin\CouponController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
-use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Client\Auth\ForgotPasswordController;
-use App\Http\Controllers\Client\Auth\LoginController as AuthLoginController;
-use App\Http\Controllers\Client\Auth\RegisterController as AuthRegisterController;
-//Client Controller
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Client\CartController;
-use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\Client\HomeController;
-use App\Http\Controllers\Client\NotificationController as ClientNotificationController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Client\OrderController;
-use App\Http\Controllers\Client\ProductController as ClientProductController;
-use App\Http\Controllers\Client\ProfileController as ClientProfileController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Client\ReviewController;
 use App\Http\Controllers\Client\SearchController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AttributeController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Client\SocialLoginCallback;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\AdministratorController;
+use App\Http\Controllers\Admin\Auth\RegisterController;
+use App\Http\Controllers\Admin\AttributeOptionController;
+//Client Controller
+use App\Http\Controllers\Client\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Client\Auth\LoginController as AuthLoginController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
+use App\Http\Controllers\Client\ProfileController as ClientProfileController;
+use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
+use App\Http\Controllers\Client\Auth\RegisterController as AuthRegisterController;
+use App\Http\Controllers\Client\NotificationController as ClientNotificationController;
+use App\Http\Controllers\Admin\Auth\ForgotPasswordController as AdminForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', [AuthLoginController::class, 'create'])->name('login');
 Route::post('/login', [AuthLoginController::class, 'store'])->name('login');
+Route::get('/social/{provider}', SocialLogin::class)->name('social.login');
+Route::get('/social/{provider}/callback', SocialLoginCallback::class);
 Route::post('/logout', [AuthLoginController::class, 'destroy'])->name('logout');
 Route::get('/register', [AuthRegisterController::class, 'create'])->name('register');
 Route::post('/register', [AuthRegisterController::class, 'store'])->name('register');
