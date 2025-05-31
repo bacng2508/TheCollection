@@ -1,7 +1,5 @@
 # THE COLLECTION
 
----
-
 ## Client
 
 **1. Home**
