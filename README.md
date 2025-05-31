@@ -76,8 +76,8 @@
 **11. Role management**
 ![Role!](/demo/admin/role.png)
 
-**12. Authorization**
+**12. Authorization management**
 ![Authorization!](/demo/admin/authorization.jpeg)
 
-**13. Administrator**
+**13. Administrator management**
 ![Administrator!](/demo/admin/administrator.png)
