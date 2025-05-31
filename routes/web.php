@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Middleware\SetLocate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Client\SocialLogin;
-use App\Http\Controllers\Admin\RoleController;
 
 //Admin Controller
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Client\CartController;
@@ -16,15 +17,17 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Client\ReviewController;
 use App\Http\Controllers\Client\SearchController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Client\SocialLoginCallback;
 use App\Http\Controllers\Admin\NotificationController;
+
+//Client Controller
 use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\AttributeOptionController;
-//Client Controller
 use App\Http\Controllers\Client\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
@@ -99,7 +102,9 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::post('/reset-password', [AdminForgotPasswordController::class, 'postResetPassword'])->name('reset-password');
 });
 
-Route::prefix('admin')->name('admin.')->middleware('administrator')->group(function() {
+Route::prefix('admin')->name('admin.')->middleware(['administrator', 'lang'])->group(function() {
+    Route::get('/lang/{locale}', [LanguageController::class, 'changeLanguage'])->name('language.change');
+
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notification.index');
     Route::get('/notifications/read-all', [NotificationController::class, 'readAll'])->name('notification.read-all');
 

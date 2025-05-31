@@ -37,7 +37,7 @@
                         <a href="{{ route('admin.dashboard.index') }}" class="nav-link ">
                             <i class="nav-icon fa-solid fa-chart-pie mr-2"></i>
                             <p>
-                                Dashboard
+                                {{ __('Dashboard') }}
                             </p>
                         </a>
                     </li>
